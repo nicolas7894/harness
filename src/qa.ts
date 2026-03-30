@@ -58,7 +58,6 @@ export async function runQALoop(
       prompt: qaPrompt,
       config,
       paths,
-      useMcp: true,
     });
 
     // Check result

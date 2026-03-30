@@ -9,11 +9,10 @@ export interface RunAgentOptions {
   prompt: string;
   config: HarnessConfig;
   paths: HarnessPaths;
-  useMcp?: boolean;
 }
 
 export async function runAgent(options: RunAgentOptions): Promise<AgentResult> {
-  const { role, prompt, config, paths, useMcp = false } = options;
+  const { role, prompt, config, paths } = options;
   const startTime = Date.now();
   const logFile = join(paths.logs, `${role}_${Date.now()}.log`);
 
@@ -24,10 +23,6 @@ export async function runAgent(options: RunAgentOptions): Promise<AgentResult> {
     "--print",
     "--dangerously-skip-permissions",
   ];
-
-  if (useMcp) {
-    args.push("--mcp-config", paths.mcpConfig);
-  }
 
   if (config.maxTurns) {
     args.push("--max-turns", String(config.maxTurns));
